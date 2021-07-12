@@ -27,8 +27,14 @@ export class BigMapToken extends Token {
   }
 
   public ExtractSchema() {
+    let keySchema = this.KeySchema.ExtractSchema();
+    if (typeof keySchema === "object") {
+      keySchema = JSON.stringify(keySchema);
+    }
+    //console.log("ExtractSchema, key: ", typeof keySchema, keySchema);
+    //console.log("ExtractSchema, value: ", this.ValueSchema.ExtractSchema());
     return {
-      [this.KeySchema.ExtractSchema()]: this.ValueSchema.ExtractSchema(),
+      [keySchema]: this.ValueSchema.ExtractSchema(),
     };
   }
 
